@@ -24,7 +24,9 @@ var SCREEN_WIDTH = window.innerWidth,
   SCREEN_HEIGHT = window.innerHeight;
 var windowHalfX = SCREEN_WIDTH / 2;
 var windowHalfY = SCREEN_HEIGHT / 2;
-
+var licolor1 = {
+  color: "#1861b3"
+};
 init();
 animate();
 
@@ -44,109 +46,68 @@ function init() {
   renderer.autoClear = false;
   renderer.setClearColor(0x000000, 0.0);
   document.getElementById('container').appendChild(renderer.domElement);
-
+  renderer.toneMappingExposure = 1;
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(1, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
   camera.position.z = 5000;
   camera.position.y = 2000;
   scene.add(camera);
 
-
-  gemBackMaterial = new THREE.MeshPhysicalMaterial({
-    map: null,
-    color: 0x888888,
-    metalness: 1.0,
-    roughness: 0,
-    opacity: 0.5,
-    side: THREE.BackSide,
-    transparent: true,
-    envMapIntensity: 5,
-    premultipliedAlpha: true
-    // TODO: Add custom blend mode that modulates background color by this materials color.
-  });
-  gemFrontMaterial = new THREE.MeshPhysicalMaterial({
-    map: null,
-    color: 0x888888,
-    metalness: 0.0,
-    roughness: 0,
-    opacity: 0.15,
-    side: THREE.FrontSide,
-    transparent: true,
-    envMapIntensity: 5,
-    premultipliedAlpha: true
-  });
   var manager = new THREE.LoadingManager();
   manager.onProgress = function (item, loaded, total) {
     console.log(item, loaded, total);
   };
+
+
+  const alphaMap = new THREE.TextureLoader().load(
+    "models/alpha_map.jpg"
+  );
+  const emerald = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    alphaMap: alphaMap,
+    transparent: true,
+    alphaTest: 0.3,
+    side: THREE.DoubleSide
+  });
+  emerald.alphaMap.magFilter = THREE.NearestFilter;
+  emerald.clearCoat = 1;
+  emerald.reflectivity = 2;
+
   var loader = new THREE.OBJLoader(manager);
+  new THREE.OBJLoader()
+    .load('models/new.obj', function (object) {
+      // object.position.y = - 95;
+      // object.scale.setScalar(2);
+      object.traverse(function (child) {
+        if (child instanceof THREE.Mesh) {
+          // child.material = emerald;
+          child.material = emerald;
+          var second = child.clone();
+          second.material = emerald;
+          var parent = new THREE.Group();
+          parent.add(second);
+          parent.add(child);
+           parent.scale.x = parent.scale.y = parent.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 0.4;
+          scene.add(parent);
+          objects.push(parent);
+        }
+        var geom = new THREE.IcosahedronGeometry(15, 1);
+        var mat = new THREE.MeshPhongMaterial({
+          color: 0xffffff,
+          wireframe: true,
+          side: THREE.DoubleSide
 
-  // Import the model
-  loader.load('models/new.obj', function (object) {
-    object.traverse(function (child) {
-      if (child instanceof THREE.Mesh) {
-        child.material = gemBackMaterial;
-        var second = child.clone();
-        second.material = gemFrontMaterial;
-        var parent = new THREE.Group();
-        parent.add(second);
-        parent.add(child);
-        scene.add(parent);
-        objects.push(parent);
-
-      }
+        });
+       
+        object.scale.x = object.scale.y = object.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 0.4;
+        var planet = new THREE.Mesh(geom, mat);
+        planet.scale.x = planet.scale.y = planet.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 1.2;
+        scene.add(planet);
+        scene.add(object);
+        objects.push(object);
+        objects.push(planet);
+      });
     });
-  });
-
-  var genCubeUrls = function (prefix, postfix) {
-    return [
-      prefix + 'px' + postfix, prefix + 'nx' + postfix,
-      prefix + 'py' + postfix, prefix + 'ny' + postfix,
-      prefix + 'pz' + postfix, prefix + 'nz' + postfix
-    ];
-  };
-
-  //reflection map, I will try to change this later
-  var hdrUrls = genCubeUrls("./textures/cube/pisaHDR/", ".hdr");
-  new THREE.HDRCubeTextureLoader().load(THREE.UnsignedByteType, hdrUrls, function (hdrCubeMap) {
-
-    var pmremGenerator = new THREE.PMREMGenerator(hdrCubeMap);
-    pmremGenerator.update(renderer);
-
-    var pmremCubeUVPacker = new THREE.PMREMCubeUVPacker(pmremGenerator.cubeLods);
-    pmremCubeUVPacker.update(renderer);
-
-    hdrCubeRenderTarget = pmremCubeUVPacker.CubeUVRenderTarget;
-
-    gemFrontMaterial.envMap = gemBackMaterial.envMap = hdrCubeRenderTarget.texture;
-    gemFrontMaterial.needsUpdate = gemBackMaterial.needsUpdate = true;
-    hdrCubeMap.dispose();
-    pmremGenerator.dispose();
-    pmremCubeUVPacker.dispose();
-
-  });
-
-
-  // Lights
-
-  var pointLight1 = new THREE.PointLight(0xffffff);
-  pointLight1.position.set(150, 10, 0);
-  pointLight1.castShadow = false;
-  scene.add(pointLight1);
-
-  var pointLight2 = new THREE.PointLight(0xffffff);
-  pointLight2.position.set(-150, 0, 0);
-  scene.add(pointLight2);
-
-  var pointLight3 = new THREE.PointLight(0xffffff);
-  pointLight3.position.set(0, -10, -150);
-  scene.add(pointLight3);
-
-  var pointLight4 = new THREE.PointLight(0xffffff);
-  pointLight4.position.set(0, 0, 150);
-  scene.add(pointLight4);
-
-
 
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -159,12 +120,18 @@ function init() {
   stats = new Stats();
   container.appendChild(stats.dom);
 
-  // controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+
 
 
   document.addEventListener('mousemove', onDocumentMouseMove, false);
   window.addEventListener('resize', onWindowResize, false);
 
+  addLights();
+}
+
+function update() {
+  console.log(licolor1);
 }
 
 function onWindowResize() {
@@ -180,6 +147,27 @@ function onWindowResize() {
 
 }
 
+function addLights() {
+
+  var shadowLight = new THREE.DirectionalLight(0xffffff, 0.2);
+  shadowLight.position.set(20, 10, 40);
+  var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+  var ambientLight2 = new THREE.AmbientLight(0xf1a4ff, 0.2);
+  var light1 = new THREE.PointLight(0xff5de0, 0.7, 1500);
+  light1.position.set(0, 0, -50);
+  var light2 = new THREE.PointLight(0x0065b4, 0.7, 1500);
+  light2.position.set(140, 140, 10);
+  var light3 = new THREE.PointLight(0x6834a1, 0.7, 1500);
+  light3.position.set(-100, -50, -20);
+  var light4 = new THREE.PointLight(0x5854ff, 0.7, 1500);
+  light4.position.set(-100, 80, -20);
+  var light5 = new THREE.PointLight(0x117eff, 0.7, 1500);
+  light5.position.set(100, -20, 30);
+  var light6 = new THREE.PointLight(0x00205c, 0.7, 1500);
+  light6.position.set(-40, 0, 130);
+  scene.add(shadowLight, ambientLight, ambientLight2, light1, light2, light3, light4, light5, light6);
+
+}
 
 
 function animate() {
@@ -202,13 +190,14 @@ function onDocumentMouseMove(event) {
 
 function render() {
 
-  renderer.toneMappingExposure = 1.5;
+  // renderer.toneMappingExposure = 1.5;
   camera.lookAt(scene.position);
+  
   //Mouse rotation
-  if (objects.length > 0) {
-    var object = objects[0];
-    object.rotation.y = mouseX / windowHalfX * 0.1 * Math.PI;
-    object.rotation.x = -mouseY / windowHalfY * 0.1 * Math.PI;
+  for (i = 0; i < objects.length; i++) {
+    var object = objects[i];
+    object.rotation.y = object.rotation.y*0.95 + mouseX / windowHalfX * 0.1 * Math.PI*0.05;
+    object.rotation.x = object.rotation.x *0.95- mouseY / windowHalfY * 0.1 * Math.PI*0.05;
   }
   renderer.render(scene, camera);
 
