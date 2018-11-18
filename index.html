@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Pop up test</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		html {
+			/* background: linear-gradient(to bottom, #eeaeca 0%, #94bbe9 100%); */
+			background: linear-gradient(to bottom, #B26FAD 0%, #BFB7DA 30%, #6CB4E3 100%);
+		}
+
+		body {
+			color: #fff;
+			font-family: Monospace;
+			font-size: 13px;
+			text-align: center;
+			margin: 0px;
+			overflow: hidden;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<div id="container"></div>
+
+	<!-- Dependance, I will optmize later-->
+
+	<script src="build/three.js"></script>
+	<!-- <script src="js/controls/OrbitControls.js"></script> -->
+	<script src="js/loaders/RGBELoader.js"></script>
+	<script src="js/loaders/HDRCubeTextureLoader.js"></script>
+
+	<script src="js/WebGL.js"></script>
+	<script src="js/libs/stats.min.js"></script>
+
+	<script src="js/pmrem/PMREMGenerator.js"></script>
+	<script src="js/pmrem/PMREMCubeUVPacker.js"></script>
+	<script src="js/libs/dat.gui.min.js"></script>
+
+	<script src="js/postprocessing/EffectComposer.js"></script>
+	<script src="js/postprocessing/RenderPass.js"></script>
+	<script src="js/postprocessing/MaskPass.js"></script>
+	<script src="js/postprocessing/ShaderPass.js"></script>
+	<script src="js/shaders/CopyShader.js"></script>
+	<script src="js/shaders/FXAAShader.js"></script>
+	<script src="js/postprocessing/BloomPass.js"></script>
+	<script src="js/shaders/ConvolutionShader.js"></script>
+
+	<script src="js/loaders/OBJLoader.js"></script>
+
+
+	<!-- customization -->
+
+
+	<script src="app.js"></script>
+
+
+
+</body>
+
+</html>
