@@ -24,17 +24,12 @@ var SCREEN_WIDTH = window.innerWidth,
   SCREEN_HEIGHT = window.innerHeight;
 var windowHalfX = SCREEN_WIDTH / 2;
 var windowHalfY = SCREEN_HEIGHT / 2;
-var licolor1 = {
-  color: "#1861b3"
-};
+
 init();
 animate();
 
 function init() {
-  THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true
-  });
+
   container = document.createElement('div');
 
   renderer = new THREE.WebGLRenderer({
@@ -62,16 +57,28 @@ function init() {
   const alphaMap = new THREE.TextureLoader().load(
     "models/alpha_map.jpg"
   );
-  const emerald = new THREE.MeshPhysicalMaterial({
+  const emerald1 = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
+
+    metalness: 0.1,
+    // roughness: 0.6,
+
+    side: THREE.BackSide
+  });
+  const emerald2 = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+
     alphaMap: alphaMap,
     transparent: true,
-    alphaTest: 0.3,
-    side: THREE.DoubleSide
+    alphaTest: 0,
+    // opacity: 0.8,
+    side: THREE.FrontSide
+
   });
-  emerald.alphaMap.magFilter = THREE.NearestFilter;
-  emerald.clearCoat = 1;
-  emerald.reflectivity = 2;
+  emerald2.alphaMap.magFilter = THREE.NearestFilter;
+  emerald2.clearCoat = 1;
+  emerald2.clearCoatRoughness = 0;
+  emerald2.reflectivity = 1;
 
   var loader = new THREE.OBJLoader(manager);
   new THREE.OBJLoader()
@@ -81,13 +88,13 @@ function init() {
       object.traverse(function (child) {
         if (child instanceof THREE.Mesh) {
           // child.material = emerald;
-          child.material = emerald;
+          child.material = emerald2;
           var second = child.clone();
-          second.material = emerald;
+          second.material = emerald1;
           var parent = new THREE.Group();
           parent.add(second);
           parent.add(child);
-           parent.scale.x = parent.scale.y = parent.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 0.4;
+          parent.scale.x = parent.scale.y = parent.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 0.4;
           scene.add(parent);
           objects.push(parent);
         }
@@ -98,7 +105,7 @@ function init() {
           side: THREE.DoubleSide
 
         });
-       
+
         object.scale.x = object.scale.y = object.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 0.4;
         var planet = new THREE.Mesh(geom, mat);
         planet.scale.x = planet.scale.y = planet.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 1.2;
@@ -192,12 +199,12 @@ function render() {
 
   // renderer.toneMappingExposure = 1.5;
   camera.lookAt(scene.position);
-  
+
   //Mouse rotation
   for (i = 0; i < objects.length; i++) {
     var object = objects[i];
-    object.rotation.y = object.rotation.y*0.95 + mouseX / windowHalfX * 0.1 * Math.PI*0.05;
-    object.rotation.x = object.rotation.x *0.95- mouseY / windowHalfY * 0.1 * Math.PI*0.05;
+    object.rotation.y = object.rotation.y * 0.95 + mouseX / windowHalfX * 0.1 * Math.PI * 0.05;
+    object.rotation.x = object.rotation.x * 0.95 - mouseY / windowHalfY * 0.1 * Math.PI * 0.05;
   }
   renderer.render(scene, camera);
 
