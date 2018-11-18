@@ -65,13 +65,14 @@ function init() {
 
     side: THREE.BackSide
   });
+  emerald1.clearCoat = 1;
   const emerald2 = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
 
     alphaMap: alphaMap,
     transparent: true,
     alphaTest: 0,
-    // opacity: 0.8,
+    opacity: 0.8,
     side: THREE.FrontSide
 
   });
