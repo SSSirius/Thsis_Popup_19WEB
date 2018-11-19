@@ -150,8 +150,27 @@ function init() {
   document.getElementsByClassName('logo')[0].addEventListener('click', showHome, false);
 
   addLights();
+  loadJSON(function (json) {
+    var people = document.getElementById('creater');
+    var inhtml = "";
+    for (i in json) {
+      inhtml += "<div class='creater_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <span class='email'>" + json[i].email + "</span></div><br/>"
+    }
+    people.innerHTML = inhtml;
+    // console.log(json); // this will log out the json object
+  });
 }
-
+function loadJSON(callback) {
+  var xobj = new XMLHttpRequest();
+  xobj.overrideMimeType("application/json");
+  xobj.open('GET', ' data.json', true);
+  xobj.onreadystatechange = function () {
+    if (xobj.readyState == 4 && xobj.status == "200") {
+      callback(JSON.parse(xobj.responseText));
+    }
+  };
+  xobj.send(null);
+}
 function update() {
   console.log(licolor1);
 }
