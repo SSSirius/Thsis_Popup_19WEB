@@ -147,6 +147,8 @@ function init() {
   document.getElementsByClassName('creators')[0].addEventListener('click', showCreators, false);
   document.getElementsByClassName('floorplan')[0].addEventListener('click', showFloorPlan, false);
   document.getElementsByClassName('credits')[0].addEventListener('click', showCredits, false);
+  document.getElementsByClassName('logo')[0].addEventListener('click', showHome, false);
+
   addLights();
 }
 
@@ -235,6 +237,20 @@ function rotate() {
 //     newscene.position.x = 0;
 //   }
 // }
+
+function showHome() {
+  cam.z = 1500;
+  newscene.position.y = -20;
+  newscene.position.x = 15;
+  for (let i = 0; i < objects.length; i++) {
+    var object = objects[i];
+    object.rotation.y = object.rotation.y + Math.PI / 6;
+  }
+  let links = document.querySelectorAll('.link');
+  links.forEach(function(el) {
+    el.classList.remove('current');
+  });
+}
 
 function showCreators() {
   cam.z = 1500;

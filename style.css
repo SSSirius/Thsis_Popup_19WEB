@@ -3,6 +3,11 @@
     src: url('fonts/neue/Neue-Bold.otf') format('opentype');
 }
 
+:root {
+  --link-color: #ff8480;
+}
+
+
 html {
   /* background: radial-gradient(circle, #FfffFF, #6CB4E370 100%); */
   /* background: linear-gradient(to bottom, #eeaeca 0%, #94bbe9 100%); */
@@ -19,20 +24,20 @@ body {
   overflow: hidden;
 }
 
-.title {
+.logo {
   position: absolute;
-  top: 20px;
   left: 20px;
-  color: rgb(228, 42, 29);
-  font-family: 'Neue', sans-serif;
-  font-size: 20px;
-  text-transform: uppercase;
-  letter-spacing: -1px;
+  top: 20px;
+}
+
+.logo img {
+  width: 320px;
+  height: auto;
 }
 
 .link {
   position: absolute;
-  color: rgb(228, 42, 29);
+  color: var(--link-color);
   font-family: 'Neue', sans-serif;
   font-size: 15px;
 }
@@ -133,7 +138,7 @@ body {
 
 .link a {
   text-decoration: none;
-  color: red;
+  color: var(--link-color);
   font-size: 1em;
   /* position: relative; */
   transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -146,18 +151,18 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  background: red;
+  background: var(--link-color);
   transition: all .3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .link.current a:before {
   width: 100%;
   left: 0;
-  background: red;
+  background: var(--link-color);
 }
 
 .link a:hover:before {
   width: 100%;
   left: 0;
-  background: red;
+  background: var(--link-color);
 }
