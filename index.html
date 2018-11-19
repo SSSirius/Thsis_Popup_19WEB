@@ -2,121 +2,27 @@
 <html lang="en">
 
 <head>
-	<title>Pop up test</title>
+	<title>MFADT 2018 Thesis Pop-Up Show</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
-	<style>
-		html {
-			/* background: radial-gradient(circle, #FfffFF, #6CB4E370 100%); */
-			/* background: linear-gradient(to bottom, #eeaeca 0%, #94bbe9 100%); */
-			background: linear-gradient(-45deg, #B26FAD90 0%, #BFB7DA40 50%, #6CB4E390 100%);
-		}
-
-		body {
-			color: #fff;
-			/* font-family: Monospace;*/
-			font-family: 'Varela Round', sans-serif;
-			font-size: 13px;
-			text-align: center;
-			margin: 0px;
-			overflow: hidden;
-		}
-
-		.left {
-			position: absolute;
-			top: calc(30vh - 20px);
-			left: 18vw;
-			font-size: 80px;
-			font-weight: 100;
-			transform: translateZ(-200px) rotateY(-40deg) rotateX(10deg);
-			font-weight: 600;
-			text-shadow: 5px 5px 5px #49484820;
-			z-index: 1;
-		}
-
-		.card {
-			/* background: #fff; */
-			width: 100vw;
-			height: 413px;
-			margin: auto;
-			position: absolute;
-			/* box-shadow: 0 70px 63px -60px #494848; */
-			transform-style: preserve-3d;
-			transition: transform .05s linear;
-
-			/* background: linear-gradient(-45deg, #B26FAD90 0%, #BFB7DA40 50%, #6CB4E390 100%); */
-
-		}
-
-		.right {
-			position: absolute;
-			top: calc(60vh - 40px);
-			right: 18vw;
-			font-size: 80px;
-			font-weight: 100;
-			transform: translateZ(300px) rotateY(40deg) rotateX(10deg);
-			font-weight: 600;
-			text-shadow: 5px 5px 5px#49484820;
-			z-index: -1;
-		}
-
-		#container {
-			/* position: absolute; */
-			background: none;
-			/* z-index: 0; */
-			/* transform: translateZ(10px); */
-
-		}
-
-		.topleft {
-			position: absolute;
-			top: 5vh;
-			left: 5vw;
-			z-index: 99;
-
-		}
-
-		.topright {
-			position: absolute;
-			top: 5vh;
-			right: 5vw;
-			z-index: 99;
-		}
-
-		.bottomleft {
-			position: absolute;
-			bottom: 5vh;
-			left: 5vw;
-			z-index: 99;
-		}
-
-		.bottomright {
-			position: absolute;
-			bottom: 5vh;
-			right: 5vw;
-			z-index: 99;
-		}
-	</style>
+	<link href="style.css" rel="stylesheet">
 </head>
-
 <body>
+	<div class="title">
+		MFADT 2018 Thesis Pop Up Show
+	</div>
+	<div class="link creators"><a href="#">CREATORS</a></div>
+	<div class="link floorplan"><a href="#">FLOOR PLAN</a></div>
+	<div class="link credits"><a href="#">Credits</a></div>
 
-
-	<!-- <div class="card"> -->
-	<!-- <h1 class="left">MFA D+T </h1>
-		<h1 class="right">Angler</h1> -->
-
-
-	<!-- </div> -->
 	<div id="container"></div>
 	<!-- <div class="topleft" onclick="selectEv(0)">topleft</div>
 <div class="topright" onclick="selectEv(1)">topright</div>
 <div class="bottomright" onclick="selectEv(2)">bottomright</div>
 <div class="bottomleft" onclick="selectEv(3)">bottomleft</div>
 <div class="" onclick="selectEv(4)">back</div> -->
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<!-- Dependance, I will optmize later-->
+	<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
 
 	<script src="build/three.js"></script>
 	<script src="js/utils/GeometryUtils.js"></script>
@@ -126,18 +32,10 @@
 	<script src="js/loaders/MTLLoader.js"></script>
 	<script src="js/loaders/OBJLoader.js"></script>
 	<script src="js/loaders/HDRCubeTextureLoader.js"></script>
-
 	<script src="js/WebGL.js"></script>
 	<script src="js/libs/stats.min.js"></script>
-
-
 	<!-- customization -->
-
-
 	<script src="app.js"></script>
-
-
-
 </body>
 
 </html>

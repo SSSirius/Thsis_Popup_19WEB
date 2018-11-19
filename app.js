@@ -32,12 +32,13 @@ var windowHalfX = SCREEN_WIDTH / 2;
 var windowHalfY = SCREEN_HEIGHT / 2;
 var parent = new THREE.Group();
 var texts = new THREE.Group();
-var ratio = 0.05;
+var RATIO = 0.05;
+
+let clock = new THREE.Clock();
 init();
 animate();
 
 function init() {
-
   container = document.createElement('div');
 
   renderer = new THREE.WebGLRenderer({
@@ -62,7 +63,6 @@ function init() {
     console.log(item, loaded, total);
   };
 
-
   const alphaMap = new THREE.TextureLoader().load(
     "models/alpha_map.jpg"
   );
@@ -85,7 +85,6 @@ function init() {
     alphaTest: 0,
     opacity: 0.8,
     side: THREE.FrontSide
-
   });
   emerald2.alphaMap.magFilter = THREE.NearestFilter;
   emerald2.clearCoat = 1;
@@ -115,7 +114,6 @@ function init() {
           color: 0xffffff,
           wireframe: true,
           side: THREE.DoubleSide
-
         });
 
         object.scale.x = object.scale.y = object.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 0.4;
@@ -128,32 +126,27 @@ function init() {
       });
     });
 
-
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;
-
-
   renderer.gammaInput = true;
   renderer.gammaOutput = true;
-
-
-
-
-
-
-
   stats = new Stats();
   container.appendChild(stats.dom);
 
   // controls = new THREE.OrbitControls(camera, renderer.domElement);
 
   newscene.position = scene.position;
+  cam.z = 1500;
+  newscene.position.y = -20;
+  newscene.position.x = 15;
 
-  document.addEventListener('mousemove', onDocumentMouseMove, false);
-  document.addEventListener('click', onDocumentMouseClick, false);
+  // document.addEventListener('mousemove', onDocumentMouseMove, false);
+  // document.addEventListener('click', onDocumentMouseClick, false);
   window.addEventListener('resize', onWindowResize, false);
-
+  document.getElementsByClassName('creators')[0].addEventListener('click', showCreators, false);
+  document.getElementsByClassName('floorplan')[0].addEventListener('click', showFloorPlan, false);
+  document.getElementsByClassName('credits')[0].addEventListener('click', showCredits, false);
   addLights();
 }
 
@@ -162,7 +155,6 @@ function update() {
 }
 
 function onWindowResize() {
-
   SCREEN_WIDTH = window.innerWidth;
   SCREEN_HEIGHT = window.innerHeight;
 
@@ -171,11 +163,9 @@ function onWindowResize() {
   camera.updateProjectionMatrix();
   windowHalfX = SCREEN_WIDTH / 2;
   windowHalfY = SCREEN_HEIGHT / 2;
-
 }
 
 function addLights() {
-
   var shadowLight = new THREE.DirectionalLight(0xffffff, 0.2);
   shadowLight.position.set(30, 10, 50);
   var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
@@ -193,12 +183,10 @@ function addLights() {
   var light6 = new THREE.PointLight(0x00205c, 0.7, 1500);
   light6.position.set(-40, 0, 130);
   scene.add(shadowLight, ambientLight, ambientLight2, light1, light2, light3, light4, light5, light6);
-
 }
 
 
 function animate() {
-
   requestAnimationFrame(animate);
 
   // stats.begin();
@@ -206,87 +194,114 @@ function animate() {
   // render();
   stats.update();
   // stats.end();
-
 }
 
-function onDocumentMouseMove(event) {
-  mouseX = (event.clientX - windowHalfX) * 10;
-  mouseY = (event.clientY - windowHalfY) * 10;
+// function onDocumentMouseMove(event) {
+//   mouseX = (event.clientX - windowHalfX) * 10;
+//   mouseY = (event.clientY - windowHalfY) * 10;
+// }
 
+function rotate() {
+  mouseX += 10;
+  mouseY += 10;
+  // mouseX = (Math.abs(simplex.noise2D(1, Date.now())) * SCREEN_WIDTH - windowHalfX) * 10;
+  // mouseY = simpley.noise2D(1, Date.now()) * SCREEN_HEIGHT/2;
 }
 
-function onDocumentMouseClick(event) {
-  //   mouseX = (event.clientX - windowHalfX) * 10;
-  //   mouseY = (event.clientY - windowHalfY) * 10;
-  console.log(mouseX * mouseY);
-  console.log(mouseX, mouseY);
-  if (mouseX * mouseY > 90000) {
-    cam.z = 1500;
-    if (mouseX > 0) {
+// function onDocumentMouseClick(event) {
+//   // console.log(mouseX * mouseY);
+//   // console.log(mouseX, mouseY);
+//   if (mouseX * mouseY > 90000) {
+//     cam.z = 1500;
+//     if (mouseX > 0) {
+//       newscene.position.y = 20;
+//       newscene.position.x = -10;
+//     } else {
+//       newscene.position.y = -20;
+//       newscene.position.x = 15;
+//     }
+//   } else if (mouseX * mouseY < -90000) {
+//     cam.z = 1500;
+//     if (mouseX > 0) {
+//       newscene.position.y = -20;
+//       newscene.position.x = -10;
+//     } else {
+//       newscene.position.y = 20;
+//       newscene.position.x = 15;
+//     }
+//   } else {
+//     cam.z = 5000;
+//     newscene.position.y = 0;
+//     newscene.position.x = 0;
+//   }
+// }
 
-      newscene.position.y = 20;
-      newscene.position.x = -10;
-      // break;
-
-    } else {
-
-      newscene.position.y = -20;
-      newscene.position.x = 15;
-
-
-      // break;
-    }
-
-  } else if (mouseX * mouseY < -90000) {
-    cam.z = 1500;
-    if (mouseX > 0) {
-
-      newscene.position.y = -20;
-      newscene.position.x = -10;
-
-      // break;
-
-    } else {
-
-      newscene.position.y = 20;
-      newscene.position.x = 15;
-
-
-      // break;
-    }
-
-
-
-  } else {
-    cam.z = 5000;
-    newscene.position.y = 0;
-    newscene.position.x = 0;
-
+function showCreators() {
+  cam.z = 1500;
+  newscene.position.y = -20;
+  newscene.position.x = -25;
+  for (let i = 0; i < objects.length; i++) {
+    var object = objects[i];
+    object.rotation.y = object.rotation.y - Math.PI / 6;
   }
-
-
+  let links = document.querySelectorAll('.link');
+  links.forEach(function(el) {
+    el.classList.remove('current');
+  });
+  // document.getElementsByClassName('link').classList.remove('current');
+  document.getElementsByClassName('creators')[0].classList.add('current');
 }
 
+function showFloorPlan() {
+  cam.z = 1500;
+  newscene.position.y = 20;
+  newscene.position.x = 20;
+  for (let i = 0; i < objects.length; i++) {
+    var object = objects[i];
+    object.rotation.y = object.rotation.y + Math.PI / 6;
+  }
+  let links = document.querySelectorAll('.link');
+  links.forEach(function(el) {
+    el.classList.remove('current');
+  });
+  // document.getElementsByClassName('link').classList.remove('current');
+  document.getElementsByClassName('floorplan')[0].classList.add('current');
+}
+
+function showCredits() {
+  cam.z = 1500;
+  newscene.position.y = 20;
+  newscene.position.x = -20;
+  for (let i = 0; i < objects.length; i++) {
+    var object = objects[i];
+    object.rotation.y = object.rotation.y + Math.PI / 6;
+  }
+  let links = document.querySelectorAll('.link');
+  links.forEach(function(el) {
+    el.classList.remove('current');
+  });
+  // document.getElementsByClassName('link').classList.remove('current');
+  document.getElementsByClassName('credits')[0].classList.add('current');
+}
 
 function render() {
-
+  if (Math.floor(clock.getElapsedTime() * 10) % 2 == 0) {
+    rotate();
+  }
   // renderer.toneMappingExposure = 1.5;
-
-  camera.position.x = camera.position.x * (1 - ratio) + cam.x * ratio;
-  camera.position.y = camera.position.y * (1 - ratio) + cam.y * ratio;
-  camera.position.z = camera.position.z * (1 - ratio) + cam.z * ratio;
-
+  camera.position.x = camera.position.x * (1 - RATIO) + cam.x * RATIO;
+  camera.position.y = camera.position.y * (1 - RATIO) + cam.y * RATIO;
+  camera.position.z = camera.position.z * (1 - RATIO) + cam.z * RATIO;
 
   camera.lookAt(scene.position);
-  //Mouse rotation
-  for (i = 0; i < objects.length; i++) {
+  // Mouse rotation
+  for (let i = 0; i < objects.length; i++) {
     var object = objects[i];
-    // console.log(object.position);
-    object.position.x = object.position.x * (1 - ratio) + newscene.position.x * ratio;
-    object.position.y = object.position.y * (1 - ratio) + newscene.position.y * ratio;
-    object.rotation.y = object.rotation.y * (1 - ratio) + mouseX / windowHalfX * 0.1 * Math.PI * ratio;
-    object.rotation.x = object.rotation.x * (1 - ratio) - mouseY / windowHalfY * 0.1 * Math.PI * ratio;
+    object.position.x = object.position.x * (1 - RATIO) + newscene.position.x * RATIO;
+    object.position.y = object.position.y * (1 - RATIO) + newscene.position.y * RATIO;
+    object.rotation.y = object.rotation.y * (1 - RATIO) + mouseX / windowHalfX * 0.01 * Math.PI * RATIO;
+    object.rotation.x = object.rotation.x * (1 - RATIO) - mouseY / windowHalfY * 0.01 * Math.PI * RATIO;
   }
-  renderer.render(scene, camera);
 
+  renderer.render(scene, camera);
 }
