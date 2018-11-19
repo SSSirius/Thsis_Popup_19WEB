@@ -7,7 +7,6 @@
   --link-color: #ff8480;
 }
 
-
 html {
   /* background: radial-gradient(circle, #FfffFF, #6CB4E370 100%); */
   /* background: linear-gradient(to bottom, #eeaeca 0%, #94bbe9 100%); */
@@ -15,7 +14,7 @@ html {
 }
 
 body {
-  color: #fff;
+  color: #343639;
   /* font-family: Monospace;*/
   font-family: 'Neue', sans-serif;
   font-size: 12px;
