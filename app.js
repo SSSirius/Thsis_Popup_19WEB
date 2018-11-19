@@ -154,7 +154,7 @@ function init() {
     var people = document.getElementById('creater');
     var inhtml = "";
     for (i in json) {
-      inhtml += "<div class='creater_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <span class='email'>" + json[i].email + "</span></div><br/>"
+       inhtml += "<div class='creater_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <a class='email' href='mailto:" + json[i].email + "'> " + json[i].email + " </a> </div > <br/> "
     }
     people.innerHTML = inhtml;
     // console.log(json); // this will log out the json object
