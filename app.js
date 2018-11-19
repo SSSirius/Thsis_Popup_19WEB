@@ -274,7 +274,7 @@ function showCredits() {
   newscene.position.x = -20;
   for (let i = 0; i < objects.length; i++) {
     var object = objects[i];
-    object.rotation.y = object.rotation.y + Math.PI / 6;
+    object.rotation.y = object.rotation.y - Math.PI / 6;
   }
   let links = document.querySelectorAll('.link');
   links.forEach(function(el) {
