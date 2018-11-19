@@ -8,11 +8,17 @@ var container, stats;
 var params = {
   projection: 'normal',
   autoRotate: false,
-  reflectivity: 1.0,
+  reflectivity: 0,
   background: false,
   exposure: 1.0,
   gemColor: 'Green'
 };
+var cam = {
+  x: 0,
+  y: 2000,
+  z: 5000
+};
+var newscene = new THREE.Vector3(0, 0, 0);
 var camera, scene, renderer, controls, objects = [];
 var hdrCubeMap;
 var composer;
@@ -24,7 +30,9 @@ var SCREEN_WIDTH = window.innerWidth,
   SCREEN_HEIGHT = window.innerHeight;
 var windowHalfX = SCREEN_WIDTH / 2;
 var windowHalfY = SCREEN_HEIGHT / 2;
-
+var parent = new THREE.Group();
+var texts = new THREE.Group();
+var ratio = 0.05;
 init();
 animate();
 
@@ -43,9 +51,10 @@ function init() {
   document.getElementById('container').appendChild(renderer.domElement);
   renderer.toneMappingExposure = 1;
   scene = new THREE.Scene();
+  // newscene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(1, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
-  camera.position.z = 5000;
-  camera.position.y = 2000;
+  camera.position.z = cam.z;
+  camera.position.y = cam.y;
   scene.add(camera);
 
   var manager = new THREE.LoadingManager();
@@ -59,16 +68,18 @@ function init() {
   );
   const emerald1 = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
-
-    metalness: 0.1,
-    // roughness: 0.6,
+    // transparent: true,
+    metalness: 0.4,
+    //  opacity: 0.9,
+    // roughness: 0.0,
 
     side: THREE.BackSide
   });
+  emerald1.reflectivity = 1;
   emerald1.clearCoat = 1;
   const emerald2 = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
-
+    metalness: 0.2,
     alphaMap: alphaMap,
     transparent: true,
     alphaTest: 0,
@@ -78,7 +89,7 @@ function init() {
   });
   emerald2.alphaMap.magFilter = THREE.NearestFilter;
   emerald2.clearCoat = 1;
-  emerald2.clearCoatRoughness = 0;
+  emerald2.clearCoatRoughness = 1;
   emerald2.reflectivity = 1;
 
   var loader = new THREE.OBJLoader(manager);
@@ -92,7 +103,7 @@ function init() {
           child.material = emerald2;
           var second = child.clone();
           second.material = emerald1;
-          var parent = new THREE.Group();
+
           parent.add(second);
           parent.add(child);
           parent.scale.x = parent.scale.y = parent.scale.z = SCREEN_WIDTH / SCREEN_HEIGHT * 0.4;
@@ -117,6 +128,7 @@ function init() {
       });
     });
 
+
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;
@@ -125,14 +137,21 @@ function init() {
   renderer.gammaInput = true;
   renderer.gammaOutput = true;
 
+
+
+
+
+
+
   stats = new Stats();
   container.appendChild(stats.dom);
 
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  // controls = new THREE.OrbitControls(camera, renderer.domElement);
 
-
+  newscene.position = scene.position;
 
   document.addEventListener('mousemove', onDocumentMouseMove, false);
+  document.addEventListener('click', onDocumentMouseClick, false);
   window.addEventListener('resize', onWindowResize, false);
 
   addLights();
@@ -158,7 +177,7 @@ function onWindowResize() {
 function addLights() {
 
   var shadowLight = new THREE.DirectionalLight(0xffffff, 0.2);
-  shadowLight.position.set(20, 10, 40);
+  shadowLight.position.set(30, 10, 50);
   var ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
   var ambientLight2 = new THREE.AmbientLight(0xf1a4ff, 0.2);
   var light1 = new THREE.PointLight(0xff5de0, 0.7, 1500);
@@ -193,19 +212,80 @@ function animate() {
 function onDocumentMouseMove(event) {
   mouseX = (event.clientX - windowHalfX) * 10;
   mouseY = (event.clientY - windowHalfY) * 10;
+
+}
+
+function onDocumentMouseClick(event) {
+  //   mouseX = (event.clientX - windowHalfX) * 10;
+  //   mouseY = (event.clientY - windowHalfY) * 10;
+  console.log(mouseX * mouseY);
+  console.log(mouseX, mouseY);
+  if (mouseX * mouseY > 90000) {
+    cam.z = 1500;
+    if (mouseX > 0) {
+
+      newscene.position.y = 20;
+      newscene.position.x = -10;
+      // break;
+
+    } else {
+
+      newscene.position.y = -20;
+      newscene.position.x = 15;
+
+
+      // break;
+    }
+
+  } else if (mouseX * mouseY < -90000) {
+    cam.z = 1500;
+    if (mouseX > 0) {
+
+      newscene.position.y = -20;
+      newscene.position.x = -10;
+
+      // break;
+
+    } else {
+
+      newscene.position.y = 20;
+      newscene.position.x = 15;
+
+
+      // break;
+    }
+
+
+
+  } else {
+    cam.z = 5000;
+    newscene.position.y = 0;
+    newscene.position.x = 0;
+
+  }
+
+
 }
 
 
 function render() {
 
   // renderer.toneMappingExposure = 1.5;
-  camera.lookAt(scene.position);
 
+  camera.position.x = camera.position.x * (1 - ratio) + cam.x * ratio;
+  camera.position.y = camera.position.y * (1 - ratio) + cam.y * ratio;
+  camera.position.z = camera.position.z * (1 - ratio) + cam.z * ratio;
+
+
+  camera.lookAt(scene.position);
   //Mouse rotation
   for (i = 0; i < objects.length; i++) {
     var object = objects[i];
-    object.rotation.y = object.rotation.y * 0.95 + mouseX / windowHalfX * 0.1 * Math.PI * 0.05;
-    object.rotation.x = object.rotation.x * 0.95 - mouseY / windowHalfY * 0.1 * Math.PI * 0.05;
+    // console.log(object.position);
+    object.position.x = object.position.x * (1 - ratio) + newscene.position.x * ratio;
+    object.position.y = object.position.y * (1 - ratio) + newscene.position.y * ratio;
+    object.rotation.y = object.rotation.y * (1 - ratio) + mouseX / windowHalfX * 0.1 * Math.PI * ratio;
+    object.rotation.x = object.rotation.x * (1 - ratio) - mouseY / windowHalfY * 0.1 * Math.PI * ratio;
   }
   renderer.render(scene, camera);
 
