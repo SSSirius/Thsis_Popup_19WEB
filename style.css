@@ -164,7 +164,16 @@ right: 80px;
 overflow-y: scroll;
 height: 90vh;
 text-align: left;
+color:#333;
+}
+.creator_line{
 
+  display: flex;
+  justify-content: space-between;
+}
+.email{
+  text-decoration: none;
+  color:#333;
 }
 .topleft {
   position: absolute;
