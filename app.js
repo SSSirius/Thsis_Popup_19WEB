@@ -16,7 +16,7 @@ var params = {
 var cam = {
   x: 0,
   y: 2000,
-  z: 5000
+  z: 9000
 };
 var newscene = new THREE.Vector3(0, 0, 0);
 var camera, scene, renderer, controls, objects = [];
@@ -53,7 +53,7 @@ function init() {
   renderer.toneMappingExposure = 1;
   scene = new THREE.Scene();
   // newscene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(1, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
+  camera = new THREE.PerspectiveCamera(1, SCREEN_WIDTH / SCREEN_HEIGHT, 1,20000);
   camera.position.z = cam.z;
   camera.position.y = cam.y;
   scene.add(camera);

@@ -22,6 +22,7 @@ body {
   text-align: center;
   margin: 0px;
   overflow: hidden;
+  /* color:#fff; */
 }
 
 .logo {
@@ -55,7 +56,11 @@ body {
 .link.credits {
   bottom:2vw;
   right:2vw;
+  /* color:#fff; */
 }
+/* .link.credits p {
+  color: #fff;
+} */
 
 .intro {
   position: absolute;
@@ -107,10 +112,12 @@ body {
   font-size: 12px;
   position: absolute;
   top: 60vh;
-  right: 80px;
+  right: 10vw;
+  min-width: 15vw;
   overflow-y: scroll;
-  height: 100vh;
+  height: 40vh;
   text-align: left;
+  color:#fff
 }
 
 .left {
