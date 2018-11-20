@@ -368,7 +368,25 @@ function showCredits() {
   });
   // document.getElementsByClassName('link').classList.remove('current');
   document.getElementsByClassName('credits')[0].classList.add('current');
+
+  let timeline = anime.timeline();
+  timeline
+  .add({
+    targets: '.des',
+    opacity: 0,
+    duration: 500,
+    easing: 'easeInOutSine',
+    elasticity: 0
+  })
+  .add({
+    targets: '.des.credits',
+    opacity: 1,
+    duration: 500,
+    easing: 'easeInOutSine',
+    elasticity: 0
+  });
 }
+
 
 function render() {
   if (Math.floor(clock.getElapsedTime() * 10) % 2 == 0) {

@@ -101,6 +101,17 @@ body {
   height: auto;
 }
 
+.des.credits {
+  font-family: 'Neue', sans-serif;
+  font-size: 12px;
+  position: absolute;
+  top: 60vh;
+  right: 80px;
+  overflow-y: scroll;
+  height: 100vh;
+  text-align: left;
+}
+
 .left {
   position: absolute;
   top: calc(30vh - 20px);
@@ -148,10 +159,11 @@ body {
 }
 .creator-list{
 position: absolute;
-top: 0;
+top: 50px;
 right: 80px;
 overflow-y: scroll;
-height: 100vh;
+height: 90vh;
+text-align: left;
 
 }
 .topleft {
