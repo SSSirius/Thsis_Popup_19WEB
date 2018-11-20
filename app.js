@@ -150,15 +150,15 @@ function init() {
   document.getElementsByClassName('logo')[0].addEventListener('click', showHome, false);
 
   addLights();
-  // loadJSON(function (json) {
-  //   var people = document.getElementById('creater');
-  //   var inhtml = "";
-  //   for (i in json) {
-  //     inhtml += "<div class='creater_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <span class='email'>" + json[i].email + "</span></div><br/>"
-  //   }
-  //   people.innerHTML = inhtml;
-  //   // console.log(json); // this will log out the json object
-  // });
+  loadJSON(function (json) {
+    var people = document.getElementById('creater');
+    var inhtml = "";
+    for (i in json) {
+       inhtml += "<div class='creater_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <a class='email' href='mailto:" + json[i].email + "'> " + json[i].email + " </a> </div > <br/> "
+    }
+    people.innerHTML = inhtml;
+    // console.log(json); // this will log out the json object
+  });
 }
 function loadJSON(callback) {
   var xobj = new XMLHttpRequest();
