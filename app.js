@@ -150,15 +150,15 @@ function init() {
   document.getElementsByClassName('logo')[0].addEventListener('click', showHome, false);
 
   addLights();
-  loadJSON(function (json) {
-    var people = document.getElementById('creater');
-    var inhtml = "";
-    for (i in json) {
-      inhtml += "<div class='creater_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <span class='email'>" + json[i].email + "</span></div><br/>"
-    }
-    people.innerHTML = inhtml;
-    // console.log(json); // this will log out the json object
-  });
+  // loadJSON(function (json) {
+  //   var people = document.getElementById('creater');
+  //   var inhtml = "";
+  //   for (i in json) {
+  //     inhtml += "<div class='creater_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <span class='email'>" + json[i].email + "</span></div><br/>"
+  //   }
+  //   people.innerHTML = inhtml;
+  //   // console.log(json); // this will log out the json object
+  // });
 }
 function loadJSON(callback) {
   var xobj = new XMLHttpRequest();
@@ -269,6 +269,24 @@ function showHome() {
   links.forEach(function(el) {
     el.classList.remove('current');
   });
+
+  // let timeline = anime.timeline();
+  // timeline
+  // .add({
+  //   targets: '.mfa',
+  //   translateY: 10px,
+  //   opacity: 1,
+  //   duration: 1000
+  // })
+  // .add({
+  //   targets: '.angle',
+  //   translateX: 250
+  // })
+  // .add({
+  //   targets: '.date',
+  //   translateX: 250
+  // });
+
 }
 
 function showCreators() {

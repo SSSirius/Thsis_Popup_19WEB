@@ -56,6 +56,35 @@ body {
   right: 20px;
 }
 
+.intro {
+  position: absolute;
+  text-align: center;
+  top: 200px;
+  left: 70px;
+}
+
+/* .intro p {
+  opacity: 0;
+  transform: translateY(200px);
+} */
+
+.intro .title {
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+.intro .title.angle {
+  font-size: 60px;
+  /* background: linear-gradient(-45deg, #B26FAD90 0%, #BFB7DA40 50%, #6CB4E390 100%) url('./img/angles.png'); */
+  background-image: url('img/angles.png');
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.intro .info {
+  font-size: 20px;
+}
+
 .left {
   position: absolute;
   top: calc(30vh - 20px);
