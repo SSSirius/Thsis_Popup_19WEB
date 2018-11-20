@@ -4,13 +4,14 @@
 }
 
 :root {
-  --link-color: #ff8480;
+  /* --link-color: #ff8480; */
+    --link-color: #fff;
 }
 
 html {
   /* background: radial-gradient(circle, #FfffFF, #6CB4E370 100%); */
   /* background: linear-gradient(to bottom, #eeaeca 0%, #94bbe9 100%); */
-  background: linear-gradient(-45deg, #B26FAD90 0%, #BFB7DA40 50%, #6CB4E390 100%);
+  background: linear-gradient(-45deg, #B26FADdd 0%, #BFB7DAdd 50%, #6CB4E3dd 100%);
 }
 
 body {
@@ -21,6 +22,7 @@ body {
   text-align: center;
   margin: 0px;
   overflow: hidden;
+  /* color:#fff; */
 }
 
 .logo {
@@ -42,25 +44,29 @@ body {
 }
 
 .link.creators {
-  top: 20px;
-  right: 20px;
+  top: 2vw;
+  right:2vw;
 }
 
 .link.floorplan {
-  bottom: 20px;
-  left: 20px;
+  bottom: 2vw;
+  left: 2vw;
 }
 
 .link.credits {
-  bottom: 20px;
-  right: 20px;
+  bottom:2vw;
+  right:2vw;
+  /* color:#fff; */
 }
+/* .link.credits p {
+  color: #fff;
+} */
 
 .intro {
   position: absolute;
   text-align: center;
-  top: 200px;
-  left: 70px;
+  top: 30vh;
+  left: 10vw;
   color: #6a6b6c;
 }
 
@@ -97,7 +103,7 @@ body {
 }
 
 .floorplan img {
-  width: 400px;
+  max-width: 40vw;
   height: auto;
 }
 
@@ -106,10 +112,12 @@ body {
   font-size: 12px;
   position: absolute;
   top: 60vh;
-  right: 80px;
+  right: 10vw;
+  min-width: 15vw;
   overflow-y: scroll;
-  height: 100vh;
+  height: 40vh;
   text-align: left;
+  color:#fff
 }
 
 .left {
@@ -159,12 +167,24 @@ body {
 }
 .creator-list{
 position: absolute;
-top: 70px;
-right: 80px;
+top: 50px;
+min-width: 40vw;
+right: 0;
 overflow-y: scroll;
 height: 90vh;
 text-align: left;
+color:#fff;
+}
+.creator_line{
+  max-width: 50vw;
+  display: flex;
+  justify-content: space-between;
+  padding-right:10vw;
 
+}
+.email{
+  text-decoration: none;
+  color:#fff;
 }
 .topleft {
   position: absolute;

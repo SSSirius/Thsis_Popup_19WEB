@@ -16,7 +16,7 @@ var params = {
 var cam = {
   x: 0,
   y: 2000,
-  z: 5000
+  z: 9000
 };
 var newscene = new THREE.Vector3(0, 0, 0);
 var camera, scene, renderer, controls, objects = [];
@@ -32,7 +32,7 @@ var windowHalfX = SCREEN_WIDTH / 2;
 var windowHalfY = SCREEN_HEIGHT / 2;
 var parent = new THREE.Group();
 var texts = new THREE.Group();
-var RATIO = 0.05;
+var RATIO = 0.02;
 
 let clock = new THREE.Clock();
 init();
@@ -53,7 +53,7 @@ function init() {
   renderer.toneMappingExposure = 1;
   scene = new THREE.Scene();
   // newscene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(1, SCREEN_WIDTH / SCREEN_HEIGHT, 1, 10000);
+  camera = new THREE.PerspectiveCamera(1, SCREEN_WIDTH / SCREEN_HEIGHT, 1,20000);
   camera.position.z = cam.z;
   camera.position.y = cam.y;
   scene.add(camera);
@@ -141,7 +141,7 @@ function init() {
   newscene.position.y = -20;
   newscene.position.x = 15;
 
-  // document.addEventListener('mousemove', onDocumentMouseMove, false);
+  document.addEventListener('mousemove', onDocumentMouseMove, false);
   // document.addEventListener('click', onDocumentMouseClick, false);
   window.addEventListener('resize', onWindowResize, false);
   document.getElementsByClassName('creators')[0].addEventListener('click', showCreators, false);
@@ -154,12 +154,13 @@ function init() {
     var people = document.getElementsByClassName('creator-list')[0];
     var inhtml = "";
     for (i in json) {
-       inhtml += "<div class='creator_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <a class='email' href='mailto:" + json[i].email + "'> " + json[i].email + " </a> </div > <br/> "
+      inhtml += "<div class='creator_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <a class='email' href='mailto:" + json[i].email + "'> " + json[i].email + " </a> </div > <br/> "
     }
     people.innerHTML = inhtml;
     // console.log(json); // this will log out the json object
   });
 }
+
 function loadJSON(callback) {
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
@@ -171,6 +172,7 @@ function loadJSON(callback) {
   };
   xobj.send(null);
 }
+
 function update() {
   console.log(licolor1);
 }
@@ -217,10 +219,10 @@ function animate() {
   // stats.end();
 }
 
-// function onDocumentMouseMove(event) {
-//   mouseX = (event.clientX - windowHalfX) * 10;
-//   mouseY = (event.clientY - windowHalfY) * 10;
-// }
+function onDocumentMouseMove(event) {
+  mouseX = (event.clientX - windowHalfX) * 10;
+  mouseY = (event.clientY - windowHalfY) * 10;
+}
 
 function rotate() {
   mouseX += 10;
@@ -266,26 +268,26 @@ function showHome() {
     object.rotation.y = object.rotation.y + Math.PI / 6;
   }
   let links = document.querySelectorAll('.link');
-  links.forEach(function(el) {
+  links.forEach(function (el) {
     el.classList.remove('current');
   });
 
   let timeline = anime.timeline();
   timeline
-  .add({
-    targets: '.des',
-    opacity: 0,
-    duration: 500,
-    easing: 'easeInOutSine',
-    elasticity: 0
-  })
-  .add({
-    targets: '.des.intro',
-    opacity: 1,
-    duration: 500,
-    easing: 'easeInOutSine',
-    elasticity: 0
-  });
+    .add({
+      targets: '.des',
+      opacity: 0,
+      duration: 500,
+      easing: 'easeInOutSine',
+      elasticity: 0
+    })
+    .add({
+      targets: '.des.intro',
+      opacity: 1,
+      duration: 500,
+      easing: 'easeInOutSine',
+      elasticity: 0
+    });
 }
 
 function showCreators() {
@@ -297,7 +299,7 @@ function showCreators() {
     object.rotation.y = object.rotation.y - Math.PI / 6;
   }
   let links = document.querySelectorAll('.link');
-  links.forEach(function(el) {
+  links.forEach(function (el) {
     el.classList.remove('current');
   });
   // document.getElementsByClassName('link').classList.remove('current');
@@ -305,20 +307,22 @@ function showCreators() {
 
   let timeline = anime.timeline();
   timeline
-  .add({
-    targets: '.des',
-    opacity: 0,
-    duration: 500,
-    easing: 'easeInOutSine',
-    elasticity: 0
-  })
-  .add({
-    targets: '.des.creator-list',
-    opacity: 1,
-    duration: 500,
-    easing: 'easeInOutSine',
-    elasticity: 0
-  });
+    .add({
+      targets: '.des',
+      opacity: 0,
+      duration: 500,
+      //  translateY: -1000,
+      easing: 'easeInOutSine',
+      elasticity: 0
+    })
+    .add({
+      targets: '.des.creator-list',
+      opacity: 1,
+      translateY:0,
+      duration: 1000,
+      easing: 'easeInOutSine',
+      elasticity: 0
+    });
 }
 
 function showFloorPlan() {
@@ -330,7 +334,7 @@ function showFloorPlan() {
     object.rotation.y = object.rotation.y + Math.PI / 6;
   }
   let links = document.querySelectorAll('.link');
-  links.forEach(function(el) {
+  links.forEach(function (el) {
     el.classList.remove('current');
   });
   // document.getElementsByClassName('link').classList.remove('current');
@@ -338,20 +342,20 @@ function showFloorPlan() {
 
   let timeline = anime.timeline();
   timeline
-  .add({
-    targets: '.des',
-    opacity: 0,
-    duration: 500,
-    easing: 'easeInOutSine',
-    elasticity: 0
-  })
-  .add({
-    targets: '.des.floorplan',
-    opacity: 1,
-    duration: 500,
-    easing: 'easeInOutSine',
-    elasticity: 0
-  });
+    .add({
+      targets: '.des',
+      opacity: 0,
+      duration: 500,
+      easing: 'easeInOutSine',
+      elasticity: 0
+    })
+    .add({
+      targets: '.des.floorplan',
+      opacity: 1,
+      duration: 500,
+      easing: 'easeInOutSine',
+      elasticity: 0
+    });
 }
 
 function showCredits() {
@@ -363,7 +367,7 @@ function showCredits() {
     object.rotation.y = object.rotation.y - Math.PI / 6;
   }
   let links = document.querySelectorAll('.link');
-  links.forEach(function(el) {
+  links.forEach(function (el) {
     el.classList.remove('current');
   });
   // document.getElementsByClassName('link').classList.remove('current');
@@ -371,20 +375,20 @@ function showCredits() {
 
   let timeline = anime.timeline();
   timeline
-  .add({
-    targets: '.des',
-    opacity: 0,
-    duration: 500,
-    easing: 'easeInOutSine',
-    elasticity: 0
-  })
-  .add({
-    targets: '.des.credits',
-    opacity: 1,
-    duration: 500,
-    easing: 'easeInOutSine',
-    elasticity: 0
-  });
+    .add({
+      targets: '.des',
+      opacity: 0,
+      duration: 500,
+      easing: 'easeInOutSine',
+      elasticity: 0
+    })
+    .add({
+      targets: '.des.credits',
+      opacity: 1,
+      duration: 500,
+      easing: 'easeInOutSine',
+      elasticity: 0
+    });
 }
 
 
@@ -403,8 +407,8 @@ function render() {
     var object = objects[i];
     object.position.x = object.position.x * (1 - RATIO) + newscene.position.x * RATIO;
     object.position.y = object.position.y * (1 - RATIO) + newscene.position.y * RATIO;
-    object.rotation.y = object.rotation.y * (1 - RATIO) + mouseX / windowHalfX * 0.01 * Math.PI * RATIO;
-    object.rotation.x = object.rotation.x * (1 - RATIO) - mouseY / windowHalfY * 0.01 * Math.PI * RATIO;
+    object.rotation.y = object.rotation.y * (1 - RATIO) + mouseX / windowHalfX * 0.05 * Math.PI * RATIO;
+    object.rotation.x = object.rotation.x * (1 - RATIO) - mouseY / windowHalfY * 0.05 * Math.PI * RATIO;
   }
 
   renderer.render(scene, camera);
