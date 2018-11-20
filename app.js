@@ -151,10 +151,10 @@ function init() {
 
   addLights();
   loadJSON(function (json) {
-    var people = document.getElementById('creater');
+    var people = document.getElementsByClassName('creator-list')[0];
     var inhtml = "";
     for (i in json) {
-       inhtml += "<div class='creater_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <a class='email' href='mailto:" + json[i].email + "'> " + json[i].email + " </a> </div > <br/> "
+       inhtml += "<div class='creator_line'><span class='name'>" + json[i].firstName + " " + json[i].lastName + "</span>  <a class='email' href='mailto:" + json[i].email + "'> " + json[i].email + " </a> </div > <br/> "
     }
     people.innerHTML = inhtml;
     // console.log(json); // this will log out the json object
@@ -270,23 +270,22 @@ function showHome() {
     el.classList.remove('current');
   });
 
-  // let timeline = anime.timeline();
-  // timeline
-  // .add({
-  //   targets: '.mfa',
-  //   translateY: 10px,
-  //   opacity: 1,
-  //   duration: 1000
-  // })
-  // .add({
-  //   targets: '.angle',
-  //   translateX: 250
-  // })
-  // .add({
-  //   targets: '.date',
-  //   translateX: 250
-  // });
-
+  let timeline = anime.timeline();
+  timeline
+  .add({
+    targets: '.des',
+    opacity: 0,
+    duration: 500,
+    easing: 'easeInOutSine',
+    elasticity: 0
+  })
+  .add({
+    targets: '.des.intro',
+    opacity: 1,
+    duration: 500,
+    easing: 'easeInOutSine',
+    elasticity: 0
+  });
 }
 
 function showCreators() {
@@ -303,6 +302,23 @@ function showCreators() {
   });
   // document.getElementsByClassName('link').classList.remove('current');
   document.getElementsByClassName('creators')[0].classList.add('current');
+
+  let timeline = anime.timeline();
+  timeline
+  .add({
+    targets: '.des',
+    opacity: 0,
+    duration: 500,
+    easing: 'easeInOutSine',
+    elasticity: 0
+  })
+  .add({
+    targets: '.des.creator-list',
+    opacity: 1,
+    duration: 500,
+    easing: 'easeInOutSine',
+    elasticity: 0
+  });
 }
 
 function showFloorPlan() {
@@ -319,6 +335,23 @@ function showFloorPlan() {
   });
   // document.getElementsByClassName('link').classList.remove('current');
   document.getElementsByClassName('floorplan')[0].classList.add('current');
+
+  let timeline = anime.timeline();
+  timeline
+  .add({
+    targets: '.des',
+    opacity: 0,
+    duration: 500,
+    easing: 'easeInOutSine',
+    elasticity: 0
+  })
+  .add({
+    targets: '.des.floorplan',
+    opacity: 1,
+    duration: 500,
+    easing: 'easeInOutSine',
+    elasticity: 0
+  });
 }
 
 function showCredits() {
