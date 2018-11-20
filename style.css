@@ -11,7 +11,8 @@
 html {
   /* background: radial-gradient(circle, #FfffFF, #6CB4E370 100%); */
   /* background: linear-gradient(to bottom, #eeaeca 0%, #94bbe9 100%); */
-  background: linear-gradient(-45deg, #B26FADdd 0%, #BFB7DAdd 50%, #6CB4E3dd 100%);
+   background: linear-gradient(-45deg, #A478C1dd 0%, #DCD2FBdd 50%, #71D0EBdd 100%);
+  /* background: linear-gradient(-45deg, #B26FADdd 0%, #BFB7DAdd 50%, #6CB4E3dd 100%); */
 }
 
 body {
