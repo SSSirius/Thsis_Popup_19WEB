@@ -4,13 +4,14 @@
 }
 
 :root {
-  --link-color: #ff8480;
+  /* --link-color: #ff8480; */
+    --link-color: #fff;
 }
 
 html {
   /* background: radial-gradient(circle, #FfffFF, #6CB4E370 100%); */
   /* background: linear-gradient(to bottom, #eeaeca 0%, #94bbe9 100%); */
-  background: linear-gradient(-45deg, #B26FAD90 0%, #BFB7DA40 50%, #6CB4E390 100%);
+  background: linear-gradient(-45deg, #B26FADdd 0%, #BFB7DAdd 50%, #6CB4E3dd 100%);
 }
 
 body {
@@ -42,25 +43,25 @@ body {
 }
 
 .link.creators {
-  top: 20px;
-  right: 20px;
+  top: 2vw;
+  right:2vw;
 }
 
 .link.floorplan {
-  bottom: 20px;
-  left: 20px;
+  bottom: 2vw;
+  left: 2vw;
 }
 
 .link.credits {
-  bottom: 20px;
-  right: 20px;
+  bottom:2vw;
+  right:2vw;
 }
 
 .intro {
   position: absolute;
   text-align: center;
-  top: 200px;
-  left: 70px;
+  top: 30vh;
+  left: 10vw;
   color: #6a6b6c;
 }
 
@@ -97,7 +98,7 @@ body {
 }
 
 .floorplan img {
-  width: 400px;
+  max-width: 40vw;
   height: auto;
 }
 
@@ -160,20 +161,23 @@ body {
 .creator-list{
 position: absolute;
 top: 50px;
-right: 80px;
+min-width: 40vw;
+right: 0;
 overflow-y: scroll;
 height: 90vh;
 text-align: left;
-color:#333;
+color:#fff;
 }
 .creator_line{
-
+  max-width: 50vw;
   display: flex;
   justify-content: space-between;
+  padding-right:10vw;
+  
 }
 .email{
   text-decoration: none;
-  color:#333;
+  color:#fff;
 }
 .topleft {
   position: absolute;
