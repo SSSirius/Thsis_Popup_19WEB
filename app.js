@@ -371,7 +371,7 @@ function showCredits() {
     el.classList.remove('current');
   });
   // document.getElementsByClassName('link').classList.remove('current');
-  document.getElementsByClassName('credits')[0].classList.add('current');
+  document.getElementsByClassName('des credits')[0].classList.add('current');
 
   let timeline = anime.timeline();
   timeline

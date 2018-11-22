@@ -117,7 +117,8 @@ body {
   overflow-y: scroll;
   height: 40vh;
   text-align: left;
-  color:#fff
+  color:#fff;
+  z-index: 9999;
 }
 
 .left {
@@ -171,9 +172,10 @@ top: 50px;
 min-width: 40vw;
 right: 0;
 overflow-y: scroll;
-height: 90vh;
+height: 85vh;
 text-align: left;
 color:#fff;
+z-index: 0;
 }
 .creator_line{
   max-width: 50vw;
